@@ -1,26 +1,24 @@
 import { ICatalogRepository } from "../interface/catalogRepository.interface";
+import { Product } from "../models/product.model";
 
-export class CatalogService {
-
-    private _repository: ICatalogRepository;
-    constructor(private repository: ICatalogRepository){
-
-    }
-    createProduct(input: any) {
-
-    }
-    updateProduct(input: any) {
-
-    }
-    getProducts(limit: number, offset: number) {
-
-    }
-    getProduct(id: number) {
-
-    }
-    deleteProduct(id: number) {
-
-    }
-
-
+export class MockCatalogRepository implements ICatalogRepository {
+  create(data: Product): Promise<Product> {
+    const mockProduct = {
+      id: 123,
+      ...data,
+    } as Product;
+    return Promise.resolve(mockProduct);
+  }
+  update(data: Product): Promise<Product> {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): Promise<{}> {
+    throw new Error("Method not implemented.");
+  }
+  find(): Promise<Product[]> {
+    throw new Error("Method not implemented.");
+  }
+  findOne(id: number): Promise<Product> {
+    throw new Error("Method not implemented.");
+  }
 }
