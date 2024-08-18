@@ -1,27 +1,37 @@
 import express, { NextFunction, Request, Response } from "express";
-
+import {
+  CreateCart,
+  DeleteCart,
+  FindCart,
+  UpdateCart,
+} from "../services/cart.service";
+import * as repository from "../repository/cart.repository";
 const router = express.Router();
-
+const repo = repository.CartRepository;
 router.post(
   "/cart",
   async (req: Request, res: Response, next: NextFunction) => {
-    return res.status(201).json({ message: "Cart Created" });
+    const response = await CreateCart(req.body, repo);
+    res.status(201).json(response);
   }
 );
 
 router.get("/cart", async (req: Request, res: Response, next: NextFunction) => {
-  return res.status(200).json({ message: "Get Cart" });
+  const response = await FindCart(req.body, repo);
+  res.status(200).json(response);
 });
 router.patch(
   "/cart",
   async (req: Request, res: Response, next: NextFunction) => {
-    return res.status(200).json({ message: "Update Cart" });
+    const response = await UpdateCart(req.body, repo);
+    res.status(200).json(response);
   }
 );
 router.delete(
   "/cart",
   async (req: Request, res: Response, next: NextFunction) => {
-    return res.status(200).json({ message: "Delete Cart" });
+    const response = await DeleteCart(req.body, repo);
+    res.status(200).json(response);
   }
 );
 
