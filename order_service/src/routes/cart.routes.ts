@@ -6,13 +6,27 @@ import {
   UpdateCart,
 } from "../services/cart.service";
 import * as repository from "../repository/cart.repository";
+import { ValidateRequest } from "../utils/validator";
+import {
+  CartAddRequestInput,
+  CartAddRequestSchema,
+} from "../dto/cartRequest.dto";
 const router = express.Router();
 const repo = repository.CartRepository;
 router.post(
   "/cart",
   async (req: Request, res: Response, next: NextFunction) => {
-    const response = await CreateCart(req.body, repo);
-    res.status(201).json(response);
+    try {
+      const errors = ValidateRequest<CartAddRequestInput>(
+        req.body,
+        CartAddRequestSchema
+      );
+      if (errors) {
+        return res.status(400).json({ errors });
+      }
+      const response = await CreateCart(req.body, repo);
+      res.status(201).json(response);
+    } catch (err) {}
   }
 );
 

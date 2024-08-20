@@ -9,8 +9,7 @@ const createCart = async (input: any) => {
     })
     .returning({ cartId: carts.id });
 
-  console.log(result);
-  return Promise.resolve({ message: "fake response from cart repository" });
+  return Promise.resolve({ message: "Product Added to Cart Successfully" });
 };
 const updateCart = async (input: any) => {
   return Promise.resolve({ message: "fake response from cart repository" });
