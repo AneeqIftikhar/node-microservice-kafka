@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "pino": "^9.3.2",
+    "pino-http": "^10.2.0"
+  }
+}

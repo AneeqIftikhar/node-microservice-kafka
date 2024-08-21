@@ -22,11 +22,13 @@ router.post(
         CartAddRequestSchema
       );
       if (errors) {
-        return res.status(400).json({ errors });
+        return next(errors);
       }
       const response = await CreateCart(req.body, repo);
       res.status(201).json(response);
-    } catch (err) {}
+    } catch (err) {
+      next(err)
+    }
   }
 );
 
